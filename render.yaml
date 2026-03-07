@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: is-it-safe-to-drive
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2 --threads 4
+    healthCheckPath: /

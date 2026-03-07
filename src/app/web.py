@@ -187,7 +187,11 @@ def create_app(
                 "roundedPercentage": rounded_percentage,
                 "label": label,
                 "explanation": "הערכת סיכון על בסיס נתוני אזעקות היסטוריים לעיר המוצא ולחלון הנסיעה.",
-                "disclaimer": "הערכה היסטורית בלבד. זו אינה התרעה בזמן אמת ואינה הנחיית בטיחות.",
+                "disclaimer": (
+                    "הערכה היסטורית בלבד ולמטרות בידור בלבד. "
+                    "זו אינה התרעה בזמן אמת ואינה הנחיית בטיחות. "
+                    "יש לפעול תמיד לפי הנחיות פיקוד העורף."
+                ),
                 "avgAlarmsPerDay": city_summary["avgAlarmsPerDay"],
                 "mostSafeHour": city_summary["mostSafeHour"],
                 "mostDangerousHour": city_summary["mostDangerousHour"],

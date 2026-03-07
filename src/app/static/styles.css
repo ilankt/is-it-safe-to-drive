@@ -75,6 +75,17 @@ h1 {
   max-width: 56ch;
 }
 
+.safety-warning {
+  margin: -4px 0 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 97, 116, 0.5);
+  background: rgba(255, 97, 116, 0.08);
+  color: #ffd3d9;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 form {
   display: grid;
   gap: 16px;
@@ -334,6 +345,27 @@ button:active {
   color: #8e98b5;
   border-top: 1px solid #2a3149;
   padding-top: 10px;
+}
+
+.panel-credits {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 6px;
+}
+
+.credit-line {
+  margin: 0;
+  color: #aeb8d4;
+  font-size: 13px;
+}
+
+.credit-line a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.credit-line a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 880px) {

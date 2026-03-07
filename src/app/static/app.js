@@ -4,7 +4,7 @@ const suggestionsBox = document.getElementById("city-suggestions");
 const distanceRange = document.getElementById("distance-km");
 const distanceNumber = document.getElementById("distance-km-number");
 const departureInput = document.getElementById("departure-time");
-const departureDayPicker = document.getElementById("departure-day-picker");
+const departureDaySelect = document.getElementById("departure-day");
 const departureHourSelect = document.getElementById("departure-hour");
 const departurePreview = document.getElementById("departure-preview");
 const formError = document.getElementById("form-error");
@@ -30,14 +30,6 @@ const cityState = {
 const departureState = {
   workdays: [],
   selectedDateIso: "",
-};
-
-const hebrewWeekdayLetter = {
-  0: "א",
-  1: "ב",
-  2: "ג",
-  3: "ד",
-  4: "ה",
 };
 
 function isIsraeliWorkday(date) {
@@ -82,19 +74,16 @@ function buildUpcomingWorkdays(start, count) {
   return days;
 }
 
-function renderDepartureDayChips() {
-  departureDayPicker.innerHTML = departureState.workdays
+function fillDepartureDayOptions() {
+  departureDaySelect.innerHTML = departureState.workdays
     .map((day) => {
       const iso = toIsoDate(day);
-      const activeClass = iso === departureState.selectedDateIso ? "day-chip active" : "day-chip";
-      const weekday = hebrewWeekdayLetter[day.getDay()] || "";
-      const dateLabel = day.toLocaleDateString("he-IL", { day: "2-digit", month: "short" });
-      return `
-        <button class="${activeClass}" type="button" data-date="${iso}" role="radio" aria-checked="${iso === departureState.selectedDateIso}">
-          <span class="day-chip-weekday">${weekday}</span>
-          <span class="day-chip-date">${dateLabel}</span>
-        </button>
-      `;
+      const label = day.toLocaleDateString("he-IL", {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+      });
+      return `<option value="${iso}">${label}</option>`;
     })
     .join("");
 }
@@ -144,9 +133,10 @@ function initDeparturePicker() {
 
   departureState.workdays = buildUpcomingWorkdays(defaultDate, 7);
   departureState.selectedDateIso = toIsoDate(defaultDate);
+  fillDepartureDayOptions();
+  departureDaySelect.value = departureState.selectedDateIso;
   departureHourSelect.value = String(defaultDate.getHours());
 
-  renderDepartureDayChips();
   syncDepartureValue();
 }
 
@@ -345,13 +335,8 @@ function wireDistanceHandlers() {
 }
 
 function wireDepartureHandlers() {
-  departureDayPicker.addEventListener("click", (event) => {
-    const button = event.target.closest(".day-chip");
-    if (!button) {
-      return;
-    }
-    departureState.selectedDateIso = button.dataset.date || "";
-    renderDepartureDayChips();
+  departureDaySelect.addEventListener("change", () => {
+    departureState.selectedDateIso = departureDaySelect.value;
     syncDepartureValue();
   });
 

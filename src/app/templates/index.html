@@ -23,8 +23,7 @@
           <strong>דקה לכל קילומטר</strong>.
         </p>
         <p class="safety-warning">
-          למטרות בידור בלבד. אין להסתמך על התוצאה הזו לשום החלטת בטיחות. יש לפעול תמיד לפי
-          הנחיות פיקוד העורף.
+          למטרות בידור בלבד. תמיד פועלים לפי פיקוד העורף.
         </p>
 
         <form id="risk-form" novalidate>
@@ -44,19 +43,14 @@
           <div class="field-wrap">
             <label for="distance-km">מרחק (ק״מ)</label>
             <div class="distance-row">
-              <input id="distance-km" name="distance-km" type="range" min="1" max="250" value="25" />
               <input id="distance-km-number" name="distance-km-number" type="number" min="1" max="2000" value="25" />
+              <input id="distance-km" name="distance-km" type="range" min="1" max="250" value="25" />
             </div>
           </div>
 
           <div class="field-wrap">
-            <label for="departure-day-picker">יום מוצא</label>
-            <div
-              id="departure-day-picker"
-              class="day-picker"
-              role="radiogroup"
-              aria-label="יום יציאה"
-            ></div>
+            <label for="departure-day">יום מוצא</label>
+            <select id="departure-day" name="departure-day" required></select>
           </div>
 
           <div class="field-wrap">
@@ -73,39 +67,41 @@
 
       <section class="panel panel-result">
         <p class="dial-caption">הסתברות מוערכת לאזעקה בזמן הנסיעה</p>
-        <div class="dial-wrap">
-          <div class="dial" id="dial">
-            <div class="dial-core">
-              <p class="dial-value" id="dial-value">--%</p>
-              <p class="dial-label" id="dial-label">ממתין</p>
+        <div class="result-main">
+          <div class="dial-wrap">
+            <div class="dial" id="dial">
+              <div class="dial-core">
+                <p class="dial-value" id="dial-value">--%</p>
+                <p class="dial-label" id="dial-label">ממתין</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="result-meta">
-          <div class="meta-card">
-            <p class="meta-title">משך נסיעה</p>
-            <p class="meta-value" id="meta-duration">-- דק׳</p>
-          </div>
-          <div class="meta-card">
-            <p class="meta-title">זמן הגעה</p>
-            <p class="meta-value" id="meta-arrival">--</p>
-          </div>
-          <div class="meta-card">
-            <p class="meta-title">ממוצע אזעקות ליום</p>
-            <p class="meta-value" id="meta-avg-alarms">--</p>
-          </div>
-          <div class="meta-card">
-            <p class="meta-title">השעה הבטוחה ביותר</p>
-            <p class="meta-value" id="meta-safe-hour">--</p>
-          </div>
-          <div class="meta-card">
-            <p class="meta-title">השעה המסוכנת ביותר</p>
-            <p class="meta-value" id="meta-danger-hour">--</p>
-          </div>
-          <div class="meta-card">
-            <p class="meta-title">אזעקה אחרונה</p>
-            <p class="meta-value" id="meta-last-alarm">--</p>
+          <div class="result-meta">
+            <div class="meta-card">
+              <p class="meta-title">משך נסיעה</p>
+              <p class="meta-value" id="meta-duration">-- דק׳</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">זמן הגעה</p>
+              <p class="meta-value" id="meta-arrival">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">ממוצע אזעקות ליום</p>
+              <p class="meta-value" id="meta-avg-alarms">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">השעה הבטוחה ביותר</p>
+              <p class="meta-value" id="meta-safe-hour">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">השעה המסוכנת ביותר</p>
+              <p class="meta-value" id="meta-danger-hour">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">אזעקה אחרונה</p>
+              <p class="meta-value" id="meta-last-alarm">--</p>
+            </div>
           </div>
         </div>
 

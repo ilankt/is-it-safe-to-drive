@@ -136,14 +136,49 @@ select:focus {
 
 .distance-row {
   display: grid;
-  grid-template-columns: 1fr 110px;
-  gap: 10px;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
   align-items: center;
 }
 
 input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
+  height: 36px;
+  background: transparent;
   accent-color: var(--accent);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #233053;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-top: -7px;
+  background: var(--accent);
+  border: 2px solid #0f1320;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #233053;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #0f1320;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 button {
@@ -261,6 +296,13 @@ button:active {
   gap: 16px;
 }
 
+.result-main {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.85fr) minmax(0, 1.15fr);
+  gap: 12px;
+  align-items: start;
+}
+
 .dial-caption {
   margin: 0;
   color: #d3dbf1;
@@ -278,7 +320,7 @@ button:active {
   --progress: 0;
   --dial-color: #2ee8c8;
   --dial-glow: rgba(54, 226, 196, 0.22);
-  width: min(320px, 74vw);
+  width: min(260px, 100%);
   aspect-ratio: 1;
   border-radius: 50%;
   background:
@@ -316,29 +358,29 @@ button:active {
 .result-meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .meta-card {
   border: 1px solid #333b58;
   border-radius: 12px;
   background: #0f1320;
-  padding: 12px;
+  padding: 10px;
 }
 
 .meta-title {
   margin: 0;
   color: #94a0c2;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
 }
 
 .meta-value {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .result-explanation,
@@ -388,95 +430,86 @@ button:active {
   }
 
   h1 {
-    font-size: clamp(38px, 10vw, 52px);
+    font-size: clamp(30px, 8.5vw, 42px);
   }
 
   .subtitle {
-    font-size: 22px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.4;
   }
 
   label {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   input,
   select,
   button {
-    font-size: 24px;
+    font-size: 18px;
   }
 
   input[type="text"],
   input[type="number"],
   select {
-    min-height: 64px;
-    padding: 16px 18px;
-  }
-
-  .day-chip {
-    min-width: 128px;
-    padding: 14px 16px;
-    gap: 6px;
-  }
-
-  .day-chip-weekday {
-    font-size: 20px;
-  }
-
-  .day-chip-date {
-    font-size: 22px;
+    min-height: 52px;
+    padding: 12px 14px;
   }
 
   .field-hint {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .dial {
-    width: min(520px, 100%);
+    width: min(220px, 100%);
   }
 
   .dial-caption {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   .dial-label {
-    font-size: 22px;
+    font-size: 15px;
   }
 
   .meta-title {
-    font-size: 16px;
-    letter-spacing: 0.03em;
+    font-size: 11px;
+    letter-spacing: 0.02em;
     text-transform: none;
   }
 
   .meta-value {
-    font-size: 34px;
+    font-size: 16px;
   }
 
   .result-explanation,
   .result-disclaimer,
   .credit-line {
-    font-size: 20px;
-    line-height: 1.55;
+    font-size: 15px;
+    line-height: 1.4;
   }
 
   .safety-warning {
-    font-size: 18px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.45;
     padding: 12px 14px;
   }
 
   .kicker {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .suggestion-item {
-    font-size: 22px;
+    font-size: 16px;
     padding: 14px 16px;
   }
 
   button {
-    min-height: 68px;
+    min-height: 54px;
+  }
+
+  .distance-row {
+    grid-template-columns: 120px 1fr;
+    gap: 10px;
   }
 }
 
@@ -492,65 +525,62 @@ button:active {
   }
 
   .kicker {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .subtitle {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .safety-warning {
-    font-size: 18px;
-  }
-
-  .distance-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .distance-row input[type="number"] {
-    min-height: 52px;
-  }
-
-  .result-meta {
-    grid-template-columns: 1fr;
+    font-size: 13px;
   }
 
   .meta-card {
-    padding: 14px;
+    padding: 8px;
   }
 
   .dial {
-    width: min(560px, 100%);
+    width: min(190px, 100%);
   }
 
   .dial-value {
-    font-size: clamp(72px, 24vw, 112px);
+    font-size: clamp(44px, 15vw, 66px);
+  }
+
+  .result-main {
+    grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.2fr);
+    gap: 10px;
   }
 
   label {
-    font-size: 19px;
+    font-size: 15px;
   }
 
   input,
   select,
   button {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   input[type="text"],
   input[type="number"],
   select {
-    min-height: 62px;
+    min-height: 48px;
   }
 
   .meta-value {
-    font-size: 32px;
+    font-size: 14px;
   }
 
   .result-explanation,
   .result-disclaimer,
   .credit-line {
-    font-size: 19px;
+    font-size: 13px;
+  }
+
+  .distance-row {
+    grid-template-columns: 104px 1fr;
+    gap: 8px;
   }
 }

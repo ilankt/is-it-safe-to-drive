@@ -21,6 +21,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: radial-gradient(circle at 15% 15%, #1b2240 0%, var(--bg-0) 45%) fixed;
   color: var(--text-0);
@@ -384,79 +388,119 @@ button:active {
   }
 
   h1 {
-    font-size: clamp(30px, 8vw, 38px);
+    font-size: clamp(38px, 10vw, 52px);
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: 22px;
+    line-height: 1.5;
   }
 
   label {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   input,
   select,
   button {
-    font-size: 17px;
+    font-size: 24px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    min-height: 64px;
+    padding: 16px 18px;
   }
 
   .day-chip {
-    min-width: 108px;
-    padding: 12px;
+    min-width: 128px;
+    padding: 14px 16px;
+    gap: 6px;
   }
 
   .day-chip-weekday {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .day-chip-date {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .field-hint {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .dial {
-    width: min(400px, 86vw);
+    width: min(520px, 100%);
   }
 
   .dial-caption {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .dial-label {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .meta-title {
-    font-size: 13px;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    text-transform: none;
   }
 
   .meta-value {
-    font-size: 20px;
+    font-size: 34px;
   }
 
   .result-explanation,
   .result-disclaimer,
   .credit-line {
-    font-size: 15px;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .safety-warning {
+    font-size: 18px;
+    line-height: 1.55;
+    padding: 12px 14px;
+  }
+
+  .kicker {
+    font-size: 16px;
+  }
+
+  .suggestion-item {
+    font-size: 22px;
+    padding: 14px 16px;
+  }
+
+  button {
+    min-height: 68px;
   }
 }
 
 @media (max-width: 640px) {
+  .shell {
+    width: min(1100px, 98vw);
+    gap: 14px;
+    margin: 10px auto 20px;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+
   .kicker {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .subtitle {
-    font-size: 17px;
-    line-height: 1.5;
+    font-size: 20px;
   }
 
   .safety-warning {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .distance-row {
@@ -477,10 +521,36 @@ button:active {
   }
 
   .dial {
-    width: min(420px, 92vw);
+    width: min(560px, 100%);
   }
 
   .dial-value {
-    font-size: clamp(44px, 15vw, 62px);
+    font-size: clamp(72px, 24vw, 112px);
+  }
+
+  label {
+    font-size: 19px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 22px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    min-height: 62px;
+  }
+
+  .meta-value {
+    font-size: 32px;
+  }
+
+  .result-explanation,
+  .result-disclaimer,
+  .credit-line {
+    font-size: 19px;
   }
 }

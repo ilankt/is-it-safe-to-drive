@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="ambient-bg"></div>
-    <main class="shell">
+    <main id="app-shell" class="shell flow-shell view-form">
       <section class="panel panel-form">
         <p class="kicker">סיכון אזעקות היסטורי</p>
         <h1>האם בטוח לנסוע לעבודה?</h1>
@@ -66,6 +66,9 @@
       </section>
 
       <section class="panel panel-result">
+        <div class="result-topbar">
+          <button id="back-btn" class="back-btn" type="button">חזרה</button>
+        </div>
         <p class="dial-caption">הסתברות מוערכת לאזעקה בזמן הנסיעה</p>
         <div class="result-main">
           <div class="dial-wrap">

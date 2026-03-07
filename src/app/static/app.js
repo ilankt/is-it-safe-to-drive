@@ -1,4 +1,6 @@
 const form = document.getElementById("risk-form");
+const appShell = document.getElementById("app-shell");
+const backButton = document.getElementById("back-btn");
 const originInput = document.getElementById("origin-city");
 const suggestionsBox = document.getElementById("city-suggestions");
 const distanceRange = document.getElementById("distance-km");
@@ -31,6 +33,17 @@ const departureState = {
   workdays: [],
   selectedDateIso: "",
 };
+
+function showFormView() {
+  appShell.classList.remove("view-result");
+  appShell.classList.add("view-form");
+}
+
+function showResultView() {
+  appShell.classList.remove("view-form");
+  appShell.classList.add("view-result");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 function isIsraeliWorkday(date) {
   const day = date.getDay();
@@ -282,6 +295,7 @@ async function submitEstimate(event) {
     setDatasetSummary(data);
     explanation.textContent = data.explanation;
     disclaimer.textContent = data.disclaimer;
+    showResultView();
   } catch (error) {
     formError.textContent = error.message || "אירעה שגיאה.";
     formError.classList.remove("hidden");
@@ -346,9 +360,11 @@ function wireDepartureHandlers() {
 async function init() {
   initDeparturePicker();
   setDial(0, "ממתין");
+  showFormView();
   wireDistanceHandlers();
   wireDepartureHandlers();
   wireAutocompleteHandlers();
+  backButton.addEventListener("click", showFormView);
   form.addEventListener("submit", submitEstimate);
 
   try {

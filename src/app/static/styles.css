@@ -53,6 +53,44 @@ body {
   gap: 18px;
 }
 
+.flow-shell {
+  transition: width 220ms ease, margin 220ms ease;
+}
+
+.flow-shell.view-form {
+  width: min(760px, 94vw);
+  grid-template-columns: 1fr;
+}
+
+.flow-shell.view-form .panel-result {
+  display: none;
+}
+
+.flow-shell.view-result {
+  width: min(1120px, 96vw);
+  grid-template-columns: 1fr;
+}
+
+.flow-shell.view-result .panel-form,
+.flow-shell.view-result .panel-credits {
+  display: none;
+}
+
+.flow-shell.view-result .panel-result {
+  animation: view-fade-in 280ms ease;
+}
+
+@keyframes view-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .panel {
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)), var(--panel);
   border: 1px solid var(--panel-border);
@@ -296,6 +334,21 @@ button:active {
   gap: 16px;
 }
 
+.result-topbar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back-btn {
+  min-height: 42px;
+  padding: 8px 16px;
+  border: 1px solid #3b4463;
+  border-radius: 10px;
+  color: #d5def5;
+  background: #12182a;
+  font-weight: 700;
+}
+
 .result-main {
   display: grid;
   grid-template-columns: minmax(180px, 0.85fr) minmax(0, 1.15fr);
@@ -511,6 +564,24 @@ button:active {
     grid-template-columns: 120px 1fr;
     gap: 10px;
   }
+
+  .flow-shell.view-result {
+    width: 100vw;
+    margin: 0;
+  }
+
+  .flow-shell.view-result .panel-result {
+    min-height: 100dvh;
+    border-radius: 0;
+    border-right: 0;
+    border-left: 0;
+    padding: 18px 16px 20px;
+    box-shadow: none;
+  }
+
+  .flow-shell.view-result .dial {
+    width: min(260px, 100%);
+  }
 }
 
 @media (max-width: 640px) {
@@ -549,8 +620,8 @@ button:active {
   }
 
   .result-main {
-    grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.2fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   label {
@@ -570,7 +641,7 @@ button:active {
   }
 
   .meta-value {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .result-explanation,
@@ -582,5 +653,18 @@ button:active {
   .distance-row {
     grid-template-columns: 104px 1fr;
     gap: 8px;
+  }
+
+  .result-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .flow-shell.view-result .dial {
+    width: min(280px, 92vw);
+  }
+
+  .flow-shell.view-result .dial-value {
+    font-size: clamp(56px, 19vw, 86px);
   }
 }

@@ -26,6 +26,7 @@ body {
   color: var(--text-0);
   font-family: "Heebo", "Segoe UI", sans-serif;
   direction: rtl;
+  line-height: 1.45;
 }
 
 .ambient-bg {
@@ -109,6 +110,7 @@ input[type="text"],
 input[type="number"],
 select {
   width: 100%;
+  min-height: 48px;
   border: 1px solid #394161;
   border-radius: 12px;
   background: #0f1320;
@@ -146,7 +148,8 @@ button {
   background: linear-gradient(115deg, var(--accent), var(--accent-soft));
   color: #05070c;
   font-weight: 800;
-  padding: 13px 16px;
+  min-height: 50px;
+  padding: 13px 18px;
   cursor: pointer;
   transition: transform 120ms ease, filter 160ms ease;
 }
@@ -237,8 +240,8 @@ button:active {
 }
 
 .suggestion-item {
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
   cursor: pointer;
   color: #e7ecff;
 }
@@ -372,10 +375,112 @@ button:active {
   .shell {
     grid-template-columns: 1fr;
     margin-top: 16px;
+    width: min(1100px, 96vw);
   }
 
   .panel {
-    padding: 18px;
+    padding: 20px;
     border-radius: 16px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 8vw, 38px);
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 17px;
+  }
+
+  .day-chip {
+    min-width: 108px;
+    padding: 12px;
+  }
+
+  .day-chip-weekday {
+    font-size: 14px;
+  }
+
+  .day-chip-date {
+    font-size: 16px;
+  }
+
+  .field-hint {
+    font-size: 14px;
+  }
+
+  .dial {
+    width: min(400px, 86vw);
+  }
+
+  .dial-caption {
+    font-size: 16px;
+  }
+
+  .dial-label {
+    font-size: 16px;
+  }
+
+  .meta-title {
+    font-size: 13px;
+  }
+
+  .meta-value {
+    font-size: 20px;
+  }
+
+  .result-explanation,
+  .result-disclaimer,
+  .credit-line {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .kicker {
+    font-size: 12px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .safety-warning {
+    font-size: 14px;
+  }
+
+  .distance-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .distance-row input[type="number"] {
+    min-height: 52px;
+  }
+
+  .result-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-card {
+    padding: 14px;
+  }
+
+  .dial {
+    width: min(420px, 92vw);
+  }
+
+  .dial-value {
+    font-size: clamp(44px, 15vw, 62px);
   }
 }

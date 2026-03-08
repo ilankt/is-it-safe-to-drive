@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>האם בטוח לנסוע לעבודה?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Rubik:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-bg"></div>
+    <main id="app-shell" class="shell flow-shell view-form">
+      <section class="panel panel-form">
+        <p class="kicker">סיכון אזעקות היסטורי</p>
+        <h1>האם בטוח לנסוע לעבודה?</h1>
+        <p class="subtitle">
+          הזינו עיר מוצא, עיר יעד ושעת יציאה.
+          החישוב מבוסס על ימי עבודה (א׳-ה׳) בלבד.
+          זמן הנסיעה = <strong>דקה לכל ק״מ</strong>.
+        </p>
+        <form id="risk-form" novalidate>
+          <div class="field-wrap">
+            <label for="origin-city">עיר מוצא</label>
+            <input
+              id="origin-city"
+              name="origin-city"
+              type="text"
+              autocomplete="off"
+              placeholder="התחילו להקליד שם עיר"
+              required
+            />
+            <div id="city-suggestions" class="suggestions hidden" role="listbox" aria-label="הצעות ערים"></div>
+          </div>
+
+          <div class="field-wrap">
+            <label for="dest-city">עיר יעד</label>
+            <input
+              id="dest-city"
+              name="dest-city"
+              type="text"
+              autocomplete="off"
+              placeholder="התחילו להקליד שם עיר"
+              required
+            />
+            <div id="dest-suggestions" class="suggestions hidden" role="listbox" aria-label="הצעות ערים"></div>
+          </div>
+
+          <div class="field-wrap">
+            <label for="departure-hour">שעת יציאה</label>
+            <select id="departure-hour" name="departure-hour" required></select>
+          </div>
+
+          <button id="estimate-btn" type="submit">חשב סיכון</button>
+          <p id="form-error" class="error hidden" role="alert"></p>
+        </form>
+        <button id="about-btn" class="link-btn" type="button">אודות</button>
+      </section>
+
+      <section class="panel panel-result">
+        <div class="result-topbar">
+          <button id="back-btn" class="back-btn" type="button">חזרה</button>
+        </div>
+        <p class="dial-caption">הסתברות מוערכת לאזעקה בזמן הנסיעה</p>
+        <div class="result-main">
+          <div class="dial-wrap">
+            <div class="dial" id="dial">
+              <div class="dial-core">
+                <p class="dial-value" id="dial-value">--%</p>
+                <p class="dial-label" id="dial-label">ממתין</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-meta">
+            <div class="meta-card">
+              <p class="meta-title">משך נסיעה</p>
+              <p class="meta-value" id="meta-duration">-- דק׳</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">שעת הגעה משוערת</p>
+              <p class="meta-value" id="meta-arrival">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">מרחק משוער</p>
+              <p class="meta-value" id="meta-distance">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">השעה הבטוחה ביותר</p>
+              <p class="meta-value" id="meta-safe-hour">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">השעה המסוכנת ביותר</p>
+              <p class="meta-value" id="meta-danger-hour">--</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-title">אזעקה אחרונה</p>
+              <p class="meta-value" id="meta-last-alarm">--</p>
+            </div>
+          </div>
+        </div>
+
+        <p id="result-explanation" class="result-explanation">
+          הערכת סיכון על בסיס נתוני אזעקות היסטוריים לעיר המוצא ועיר היעד (ימי א׳-ה׳ בלבד).
+        </p>
+        <p id="result-disclaimer" class="result-disclaimer">
+          הערכה היסטורית בלבד ולמטרות בידור בלבד. זו אינה התרעה בזמן אמת ואינה הנחיית בטיחות.
+          יש לפעול תמיד לפי הנחיות פיקוד העורף.
+        </p>
+      </section>
+
+      <section class="panel panel-about">
+        <div class="result-topbar">
+          <button id="about-back-btn" class="back-btn" type="button">חזרה</button>
+        </div>
+
+        <h2>אודות</h2>
+
+        <div class="about-section">
+          <h3>קרדיטים</h3>
+          <p>נוצר על ידי <strong>Ilan Kachler</strong></p>
+          <p>
+            מקור הנתונים:
+            <a href="https://github.com/yuval-harpaz" target="_blank" rel="noopener noreferrer">Yuval Harpaz</a>
+            &mdash; מאגר אזעקות היסטורי פתוח מ-GitHub
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h3>רקע</h3>
+          <p>
+            הכלי מעריך את ההסתברות לשמוע אזעקה במהלך נסיעה בין שתי ערים,
+            על סמך ניתוח היסטורי של כלל האזעקות שהופעלו בימי עבודה (א׳-ה׳).
+            הנתונים נטענים ישירות מ-GitHub ומעובדים בדפדפן &mdash; ללא שרת.
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h3>איך זה מחושב?</h3>
+
+          <p>
+            אזעקות ממודלות כ<strong>-תהליך פואסון</strong> (Poisson process) &mdash;
+            אירועים שקורים באופן אקראי בזמן, בקצב ממוצע ידוע.
+            ההסתברות לקבל לפחות אזעקה אחת במהלך הנסיעה:
+          </p>
+          <div class="formula" dir="ltr">P(alarm) = 1 &minus; e<sup>&minus;&lambda;</sup></div>
+          <p>כאשר <span class="formula-inline" dir="ltr">&lambda;</span> הוא מספר האזעקות הצפוי בחלון הנסיעה.</p>
+
+          <h4>קצב אזעקות לעיר (Empirical Bayes)</h4>
+          <p>
+            לכל עיר יש קצב אזעקות משלה, אבל ערים עם מעט נתונים עלולות לתת הערכה לא מדויקת.
+            לכן אנחנו משתמשים ב<strong>-כיווץ בייסיאני</strong> (Bayesian shrinkage) שמשלב בין הקצב המקומי של העיר
+            לבין הממוצע הארצי:
+          </p>
+          <div class="formula" dir="ltr">
+            rate<sub>city</sub> = w &middot; (events<sub>city</sub> / T) + (1 &minus; w) &middot; rate<sub>global</sub>
+          </div>
+          <div class="formula" dir="ltr">
+            w = events<sub>city</sub> / (events<sub>city</sub> + 20)
+          </div>
+          <p>
+            עיר עם הרבה אזעקות מקבלת משקל גבוה לנתונים שלה;
+            עיר עם מעט אזעקות נשענת יותר על הממוצע הארצי.
+          </p>
+
+          <h4>שילוב מוצא ויעד</h4>
+          <p>
+            קצב המסלול הוא ממוצע של קצב עיר המוצא וקצב עיר היעד:
+          </p>
+          <div class="formula" dir="ltr">
+            rate<sub>route</sub> = (rate<sub>origin</sub> + rate<sub>dest</sub>) / 2
+          </div>
+
+          <h4>תיקון שעתי (Laplace smoothing)</h4>
+          <p>
+            לא כל השעות מסוכנות באותה מידה.
+            מכפיל שעתי מחושב לכל שעה עם החלקת לפלס:
+          </p>
+          <div class="formula" dir="ltr">
+            m<sub>h</sub> = ((count<sub>h</sub> + 5) / (total + 24 &times; 5)) &times; 24
+          </div>
+          <p>
+            כשהנסיעה חוצה מספר שעות, המכפיל הוא ממוצע משוקלל לפי הדקות בכל שעה.
+          </p>
+
+          <h4>חישוב סופי</h4>
+          <div class="formula" dir="ltr">
+            &lambda; = rate<sub>route</sub> &times; duration &times; hour_factor
+          </div>
+          <div class="formula" dir="ltr">
+            P = 1 &minus; e<sup>&minus;&lambda;</sup>
+          </div>
+
+          <h4>מרחק</h4>
+          <p>
+            המרחק מחושב לפי נוסחת <strong>Haversine</strong> (מרחק קו אווירי בין שתי נקודות על פני כדור הארץ),
+            מוכפל ב-1.2 לקירוב מרחק כביש. משך הנסיעה = דקה לכל ק״מ.
+          </p>
+        </div>
+
+        <p class="result-disclaimer">
+          הערכה היסטורית בלבד. זו אינה התרעה בזמן אמת ואינה הנחיית בטיחות.
+          יש לפעול תמיד לפי הנחיות פיקוד העורף.
+        </p>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>

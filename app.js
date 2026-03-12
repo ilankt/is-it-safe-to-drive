@@ -170,7 +170,8 @@ function blendedCityRate(cityCount, observationMinutes, globalRate, minEvents) {
   if (observationMinutes <= 0 || cityCount <= 0) return globalRate;
   const cityRate = cityCount / observationMinutes;
   const weight = cityCount / (cityCount + Math.max(minEvents, 1));
-  return weight * cityRate + (1 - weight) * globalRate;
+  const blended = weight * cityRate + (1 - weight) * globalRate;
+  return Math.max(blended, globalRate);
 }
 
 function smoothedMultiplier(bucketCount, totalCount, numBuckets, pseudoCount) {
@@ -203,8 +204,8 @@ function estimateRisk(originCity, destCity, startHour, distanceKm) {
   const originCount = DATA.eventsByCity[originCity] || 0;
   const destCount = DATA.eventsByCity[destCity] || 0;
 
-  const originRate = blendedCityRate(originCount, DATA.meta.observationMinutes, globalRate, 20);
-  const destRate = blendedCityRate(destCount, DATA.meta.observationMinutes, globalRate, 20);
+  const originRate = blendedCityRate(originCount, DATA.meta.observationMinutes, globalRate, 5);
+  const destRate = blendedCityRate(destCount, DATA.meta.observationMinutes, globalRate, 5);
   const routeRate = (originRate + destRate) / 2;
 
   const hourAlloc = allocateMinutesByHour(startHour, durationMinutes);

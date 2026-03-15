@@ -9,8 +9,6 @@ const COORD_URL = DATA_BASE + "coord.csv";
 const ROAD_FACTOR = 1.2; // straight-line → road distance multiplier
 const CONFLICT_START = new Date("2026-02-28T10:10:20");
 const INCLUDE_THREATS = new Set([0, 2, 5]);
-// JS getDay(): Sun=0 … Sat=6   →  working days Sun-Thu = 0,1,2,3,4
-const WORKING_DAYS = new Set([0, 1, 2, 3, 4]);
 
 /* ── State ── */
 let DATA = null;
@@ -41,19 +39,8 @@ const metaLastAlarm = document.getElementById("meta-last-alarm");
    Data loading & aggregation  (fetched live, processed in browser)
    ══════════════════════════════════════════════════════════ */
 
-function countWorkingDayMinutes(start, end) {
-  let total = 0;
-  const cursor = new Date(start);
-  while (cursor < end) {
-    if (WORKING_DAYS.has(cursor.getDay())) {
-      const nextMidnight = new Date(cursor);
-      nextMidnight.setHours(24, 0, 0, 0);
-      const boundary = nextMidnight < end ? nextMidnight : end;
-      total += (boundary - cursor) / 60000;
-    }
-    cursor.setHours(24, 0, 0, 0);
-  }
-  return Math.max(total, 1);
+function totalMinutes(start, end) {
+  return Math.max((end - start) / 60000, 1);
 }
 
 function buildAggregates(rows) {
@@ -72,8 +59,6 @@ function buildAggregates(rows) {
 
     const ts = new Date(row.time.replace(" ", "T"));
     if (isNaN(ts.getTime()) || ts < CONFLICT_START) continue;
-    if (!WORKING_DAYS.has(ts.getDay())) continue;
-
     const city = (row.cities || "").trim();
     if (!city) continue;
 
@@ -95,7 +80,7 @@ function buildAggregates(rows) {
   }
 
   const cities = Array.from(citySet).sort();
-  const observationMinutes = countWorkingDayMinutes(earliest, latest);
+  const observationMinutes = totalMinutes(earliest, latest);
 
   const lastEventIso = {};
   for (const [city, dt] of Object.entries(lastEventByCity)) {

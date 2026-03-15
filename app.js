@@ -28,6 +28,9 @@ const formError = document.getElementById("form-error");
 const dial = document.getElementById("dial");
 const dialValue = document.getElementById("dial-value");
 const dialLabel = document.getElementById("dial-label");
+const dialFlipper = document.getElementById("dial-flipper");
+const dialHint = document.getElementById("dial-hint");
+const calcDetails = document.getElementById("calc-details");
 const metaDuration = document.getElementById("meta-duration");
 const metaArrival = document.getElementById("meta-arrival");
 const metaDistance = document.getElementById("meta-distance");
@@ -205,10 +208,19 @@ function estimateRisk(originCity, destCity, startHour, distanceKm) {
     hourFactor += mult * (minutes / durationMinutes);
   }
 
-  const expected = routeRate * durationMinutes * hourFactor;
-  const probability = Math.max(0, Math.min(1, 1 - Math.exp(-expected)));
+  const originWeight = originCount / (originCount + 5);
+  const destWeight = destCount / (destCount + 5);
 
-  return { probability, expected, durationMinutes, distanceKm, originCount, destCount };
+  const lambda = routeRate * durationMinutes * hourFactor;
+  const probability = Math.max(0, Math.min(1, 1 - Math.exp(-lambda)));
+
+  return {
+    probability, lambda, durationMinutes, distanceKm,
+    originCount, destCount,
+    originRate, destRate, routeRate,
+    originWeight, destWeight,
+    globalRate, hourFactor,
+  };
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -260,6 +272,21 @@ function formatDate(iso) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function populateCalcDetails(result) {
+  const rph = (r) => (r * 60).toFixed(2);
+  const pct = Math.round(result.probability * 100);
+  calcDetails.innerHTML =
+    `<p><span class="calc-label">rate origin</span></p>` +
+    `<p>${rph(result.originRate)}/h &nbsp; w=${result.originWeight.toFixed(2)}</p>` +
+    `<p><span class="calc-label">rate dest</span></p>` +
+    `<p>${rph(result.destRate)}/h &nbsp; w=${result.destWeight.toFixed(2)}</p>` +
+    `<hr class="calc-sep">` +
+    `<p>m<sub>h</sub> = ${result.hourFactor.toFixed(2)}</p>` +
+    `<p>λ = ½(${rph(result.originRate)}+${rph(result.destRate)}) × ${result.durationMinutes} × ${result.hourFactor.toFixed(2)}</p>` +
+    `<p>&nbsp; = ${result.lambda.toFixed(3)}</p>` +
+    `<p class="calc-final">P = 1−e<sup>−${result.lambda.toFixed(2)}</sup> = ${pct}%</p>`;
 }
 
 function findMinHour(counts) {
@@ -416,6 +443,9 @@ function handleSubmit(event) {
   const label = riskLabel(roundedPct);
 
   setDial(roundedPct, label);
+  populateCalcDetails(result);
+  dialFlipper.classList.remove("flipped");
+  dialHint.textContent = "לחצו לפרטי החישוב";
 
   metaDuration.textContent = `${result.durationMinutes} דק׳`;
   const arrivalTotal = startHour * 60 + result.durationMinutes;
@@ -467,6 +497,12 @@ async function init() {
       originSuggestionsBox.classList.add("hidden");
       destSuggestionsBox.classList.add("hidden");
     }
+  });
+
+  dialFlipper.addEventListener("click", () => {
+    dialFlipper.classList.toggle("flipped");
+    dialHint.textContent = dialFlipper.classList.contains("flipped")
+      ? "לחצו לחזור" : "לחצו לפרטי החישוב";
   });
 
   backButton.addEventListener("click", showFormView);

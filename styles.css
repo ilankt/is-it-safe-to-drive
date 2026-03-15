@@ -271,14 +271,28 @@ button:active {
   display: grid;
   place-items: center;
   margin-top: 6px;
+  perspective: 800px;
+}
+
+.dial-flipper {
+  width: min(260px, 100%);
+  aspect-ratio: 1;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  cursor: pointer;
+}
+
+.dial-flipper.flipped {
+  transform: rotateY(180deg);
 }
 
 .dial {
   --progress: 0;
   --dial-color: #2ee8c8;
   --dial-glow: rgba(54, 226, 196, 0.22);
-  width: min(260px, 100%);
-  aspect-ratio: 1;
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background:
     radial-gradient(circle at center, #0f1422 0 58%, transparent 58% 100%),
@@ -292,10 +306,54 @@ button:active {
   border: 1px solid #3a4364;
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.34), inset 0 0 22px var(--dial-glow);
   transition: background 420ms ease;
+  backface-visibility: hidden;
+}
+
+.dial-back {
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(circle at center, #0f1422 0 58%, transparent 58% 100%),
+    conic-gradient(from 0deg, rgba(60, 73, 104, 0.55) 0% 100%);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.34), inset 0 0 22px rgba(47, 140, 255, 0.15);
 }
 
 .dial-core {
   text-align: center;
+}
+
+.dial-hint {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #6b7599;
+  text-align: center;
+  min-height: 1.4em;
+}
+
+.calc-details {
+  text-align: left;
+  font: 500 11px/1.7 "Rubik", monospace;
+  color: var(--text-1);
+}
+
+.calc-details p {
+  margin: 0;
+}
+
+.calc-details .calc-sep {
+  margin: 3px 0;
+  border: none;
+  border-top: 1px solid #2a3149;
+}
+
+.calc-details .calc-label {
+  color: #6b7599;
+  font-size: 10px;
+}
+
+.calc-details .calc-final {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12px;
 }
 
 .dial-value {
@@ -467,7 +525,7 @@ button:active {
     padding: 12px 14px;
   }
 
-  .dial {
+  .dial-flipper {
     width: min(220px, 100%);
   }
 
@@ -522,7 +580,7 @@ button:active {
     box-shadow: none;
   }
 
-  .flow-shell.view-result .dial {
+  .flow-shell.view-result .dial-flipper {
     width: min(260px, 100%);
   }
 }
@@ -550,7 +608,7 @@ button:active {
     padding: 8px;
   }
 
-  .dial {
+  .dial-flipper {
     width: min(190px, 100%);
   }
 
@@ -593,7 +651,7 @@ button:active {
     gap: 8px;
   }
 
-  .flow-shell.view-result .dial {
+  .flow-shell.view-result .dial-flipper {
     width: min(280px, 92vw);
   }
 

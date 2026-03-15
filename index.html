@@ -67,12 +67,20 @@
         <p class="dial-caption">הסתברות מוערכת לאזעקה בזמן הנסיעה</p>
         <div class="result-main">
           <div class="dial-wrap">
-            <div class="dial" id="dial">
-              <div class="dial-core">
-                <p class="dial-value" id="dial-value">--%</p>
-                <p class="dial-label" id="dial-label">ממתין</p>
+            <div class="dial-flipper" id="dial-flipper">
+              <div class="dial dial-front" id="dial">
+                <div class="dial-core">
+                  <p class="dial-value" id="dial-value">--%</p>
+                  <p class="dial-label" id="dial-label">ממתין</p>
+                </div>
+              </div>
+              <div class="dial dial-back">
+                <div class="dial-core">
+                  <div class="calc-details" id="calc-details" dir="ltr"></div>
+                </div>
               </div>
             </div>
+            <p class="dial-hint" id="dial-hint"></p>
           </div>
 
           <div class="result-meta">
